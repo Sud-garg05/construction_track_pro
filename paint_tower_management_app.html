@@ -1,0 +1,737 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  body {
+    font-family: var(--font-sans)
+  }
+
+  .app {
+    min-height: 600px
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-primary)
+  }
+
+  .logo {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary)
+  }
+
+  .logo span {
+    color: #1D9E75;
+    font-weight: 500
+  }
+
+  .user-switcher {
+    display: flex;
+    gap: 6px;
+    align-items: center
+  }
+
+  .user-btn {
+    padding: 5px 12px;
+    font-size: 12px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: all 0.15s
+  }
+
+  .user-btn.active {
+    background: var(--color-background-info);
+    color: var(--color-text-info);
+    border-color: var(--color-border-info);
+    font-weight: 500
+  }
+
+  .role-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 500
+  }
+
+  .badge-owner {
+    background: #E1F5EE;
+    color: #0F6E56
+  }
+
+  .badge-engineer {
+    background: #E6F1FB;
+    color: #185FA5
+  }
+
+  .badge-contractor {
+    background: #FAEEDA;
+    color: #854F0B
+  }
+
+  .tabs {
+    display: flex;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-primary);
+    padding: 0 20px
+  }
+
+  .tab {
+    padding: 12px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap
+  }
+
+  .tab.active {
+    color: #1D9E75;
+    border-bottom-color: #1D9E75;
+    font-weight: 500
+  }
+
+  .tab.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none
+  }
+
+  .content {
+    padding: 20px
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+  }
+
+  .form-group label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    font-weight: 500
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    width: 100%
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-border-info);
+    box-shadow: 0 0 0 2px rgba(24, 95, 165, 0.1)
+  }
+
+  .btn-save {
+    padding: 8px 20px;
+    background: #1D9E75;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s
+  }
+
+  .btn-save:hover {
+    background: #0F6E56
+  }
+
+  .btn-save:disabled {
+    background: var(--color-background-secondary);
+    color: var(--color-text-tertiary);
+    cursor: not-allowed
+  }
+
+  .table-wrap {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    margin-top: 20px
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed
+  }
+
+  th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+
+  tr:last-child td {
+    border-bottom: none
+  }
+
+  tr:hover td {
+    background: var(--color-background-secondary)
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap
+  }
+
+  .pill-pending {
+    background: #FAEEDA;
+    color: #854F0B
+  }
+
+  .pill-billed {
+    background: #E1F5EE;
+    color: #0F6E56
+  }
+
+  .pill-int {
+    background: #E6F1FB;
+    color: #185FA5
+  }
+
+  .pill-ext {
+    background: #FAECE7;
+    color: #993C1D
+  }
+
+  .access-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--color-background-warning);
+    border-radius: var(--border-radius-md);
+    font-size: 12px;
+    color: var(--color-text-warning);
+    margin-bottom: 16px
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px
+  }
+
+  .stat-card {
+    padding: 12px 14px;
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    text-align: center
+  }
+
+  .stat-n {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary)
+  }
+
+  .stat-l {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-top: 3px
+  }
+
+  .upload-zone {
+    border: 1px dashed var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.15s
+  }
+
+  .upload-zone:hover {
+    border-color: #1D9E75;
+    color: #1D9E75
+  }
+
+  .file-name {
+    font-size: 12px;
+    color: #1D9E75;
+    margin-top: 4px
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+    margin: 20px 0
+  }
+
+  .action-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px
+  }
+
+  .btn-add {
+    padding: 7px 14px;
+    background: transparent;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s
+  }
+
+  .btn-add:hover {
+    background: var(--color-background-secondary)
+  }
+
+  .empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--color-text-tertiary);
+    font-size: 13px
+  }
+
+  .toast {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    padding: 10px 16px;
+    background: #1D9E75;
+    color: white;
+    border-radius: var(--border-radius-md);
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 100
+  }
+
+  .toast.show {
+    opacity: 1
+  }
+
+  .inline-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: 4px;
+    vertical-align: middle
+  }
+
+  .tag-owner {
+    background: #E1F5EE;
+    color: #0F6E56
+  }
+
+  .tag-engineer {
+    background: #E6F1FB;
+    color: #185FA5
+  }
+
+  .tag-contractor {
+    background: #FAEEDA;
+    color: #854F0B
+  }
+</style>
+
+<div class="app" style="position:relative">
+  <div id="toast" class="toast"></div>
+
+  <div class="topbar">
+    <div class="logo">Construction <span>Pro</span> <small
+        style="font-size:11px;color:var(--color-text-tertiary);margin-left:6px">Grand Residence</small></div>
+    <div class="user-switcher">
+      <span style="font-size:11px;color:var(--color-text-tertiary)">Logged in as:</span>
+      <button class="user-btn active" onclick="switchUser('owner')">Owner</button>
+      <button class="user-btn" onclick="switchUser('engineer')">Engineer</button>
+      <button class="user-btn" onclick="switchUser('contractor')">Contractor</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="switchTab(0)" id="tab0">Building Details</div>
+    <div class="tab" onclick="switchTab(1)" id="tab1">Contractor Details</div>
+    <div class="tab" onclick="switchTab(2)" id="tab2">Billing</div>
+  </div>
+
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+  const TOWERS = ['TOWER A', 'TOWER B', 'TOWER A,B', 'TOWER C,D', 'PODIUM', 'CLUBHOUSE', 'HJ HOSPITAL', 'SERVICE FLOOR'];
+  const FLOORS = ['BASEMENT FLOOR', 'STILT FLOOR', 'GROUND FLOOR', '1ST FLOOR', '2ND FLOOR', '3RD FLOOR', '4TH FLOOR', '5TH FLOOR', '6TH FLOOR', '7TH FLOOR', '8TH FLOOR', '9TH FLOOR', '10TH FLOOR', '11TH FLOOR', '12TH FLOOR', '13TH FLOOR', '14TH FLOOR', '15TH FLOOR', '16TH FLOOR', '17TH FLOOR', '18TH FLOOR', '19TH FLOOR', 'TERRACE FLOOR', 'ALL FLOOR'];
+  const LOCATIONS = ['FLAT CEILING', 'BALCONY CEILING', 'TEXTURE-WALL', 'FLAT WALL', 'CEILING', 'CORRIDOR', 'PARKING', 'STAIRCASE-01', 'STAIRCASE-02', 'BALCONY TEXTURE-WALL', 'FALSE CEILING', 'GYPSUM CEILING', 'CONCRETE CEILING', 'BATHROOM', 'CORRIDOR CUTOUT', 'SERVICE LIFT LOBBY', 'LIFT LOBBY', 'ELECTRICAL ROOM', 'SERVENT TOILET'];
+  const CONTRACTORS = ['ADVAMEDIX', 'SK TRADING & CONSTRUCTION', 'MNIC COLOUR ASSOCIATES', 'NEW ARTS & INTERIA', 'AHL', 'SS CONSTRUCTION', 'MS CONSTRUCTION', 'VISHAL CONSTRUCTION', 'OTHER'];
+  const WORK_TYPES = ['FLAT CEILING', 'BALCONY CEILING', 'TEXTURE-WALL', 'FLAT WALL', 'CEILING', 'FALSE CEILING', 'GYPSUM CEILING', 'CONCRETE CEILING', 'WALL PAINT', 'SLAB BOTTOM', 'METAL WALL'];
+  const INT_EXT = ['INTERNAL', 'EXTERNAL'];
+  const UNITS = ['SQM', 'RMT', 'NOS'];
+
+  let currentUser = 'owner';
+  let currentTab = 0;
+  let buildingRecords = [
+    { id: 1, tower: 'TOWER A', floor: '13TH FLOOR', location: '1301', intExt: 'INTERNAL', workType: 'FLAT CEILING', unitSqm: 'SQM', qty: 189.98, remark: '', contractorId: null, billNo: '', billQty: null, billFile: null, billed: false },
+    { id: 2, tower: 'TOWER A', floor: '10TH FLOOR', location: 'CORRIDOR', intExt: 'EXTERNAL', workType: 'TEXTURE-WALL', unitSqm: 'SQM', qty: 1702.313, remark: '', contractorId: null, billNo: '', billQty: null, billFile: null, billed: false },
+    { id: 3, tower: 'TOWER B', floor: '7TH,8TH,9TH FLOOR', location: '701-703', intExt: 'INTERNAL', workType: 'FLAT CEILING', unitSqm: 'SQM', qty: 1709.86, remark: '', contractorId: null, billNo: '', billQty: null, billFile: null, billed: false },
+  ];
+  let nextId = 4;
+  let contractorRecords = [];
+  let nextContractorId = 1;
+
+  const ROLE_PERMS = {
+    owner: { tabs: [0, 1, 2], canAddBuilding: true, canEditBuilding: false, canAddContractor: false, canEditContractor: false, canAddBill: false },
+    engineer: { tabs: [0, 1, 2], canAddBuilding: false, canEditBuilding: false, canAddContractor: true, canEditContractor: true, canAddBill: false },
+    contractor: { tabs: [0, 1, 2], canAddBuilding: false, canEditBuilding: false, canAddContractor: false, canEditContractor: false, canAddBill: true },
+  };
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function switchUser(role) {
+    currentUser = role;
+    document.querySelectorAll('.user-btn').forEach(b => { b.classList.remove('active'); if (b.textContent.toLowerCase() === role || b.textContent.toLowerCase() === 'owner' && role === 'owner') b.classList.remove('active') });
+    document.querySelectorAll('.user-btn').forEach(b => { if (b.textContent.toLowerCase() === role) b.classList.add('active') });
+    render();
+  }
+
+  function switchTab(i) {
+    currentTab = i;
+    document.querySelectorAll('.tab').forEach((t, idx) => t.classList.toggle('active', idx === i));
+    render();
+  }
+
+  function render() {
+    const c = document.getElementById('content');
+    if (currentTab === 0) c.innerHTML = renderBuildingTab();
+    if (currentTab === 1) c.innerHTML = renderContractorTab();
+    if (currentTab === 2) c.innerHTML = renderBillingTab();
+  }
+
+  function roleBadge(role) {
+    const map = { owner: 'badge-owner', engineer: 'badge-engineer', contractor: 'badge-contractor' };
+    return `<span class="role-badge ${map[role]}">${role.charAt(0).toUpperCase() + role.slice(1)}</span>`;
+  }
+
+  function renderBuildingTab() {
+    const p = ROLE_PERMS[currentUser];
+    let html = `<div class="stat-row">
+    <div class="stat-card"><div class="stat-n">${buildingRecords.length}</div><div class="stat-l">Total Entries</div></div>
+    <div class="stat-card"><div class="stat-n">${buildingRecords.filter(r => r.intExt === 'INTERNAL').length}</div><div class="stat-l">Internal</div></div>
+    <div class="stat-card"><div class="stat-n">${buildingRecords.filter(r => r.intExt === 'EXTERNAL').length}</div><div class="stat-l">External</div></div>
+    <div class="stat-card"><div class="stat-n">${buildingRecords.filter(r => r.billed).length}</div><div class="stat-l">Billed</div></div>
+  </div>`;
+
+    if (p.canAddBuilding) {
+      html += `<div class="section-title">Add Building Entry <span class="inline-tag tag-owner">owner only</span></div>
+    <div class="form-grid">
+      <div class="form-group"><label>Tower</label><select id="b_tower"><option value="">Select tower...</option>${TOWERS.map(t => `<option>${t}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Floor</label><select id="b_floor"><option value="">Select floor...</option>${FLOORS.map(f => `<option>${f}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Location / Flat No.</label><input type="text" id="b_location" placeholder="e.g. 1301, CORRIDOR..."/></div>
+      <div class="form-group"><label>Internal / External</label><select id="b_intExt"><option value="">Select...</option>${INT_EXT.map(i => `<option>${i}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Work Type</label><select id="b_workType"><option value="">Select work type...</option>${WORK_TYPES.map(w => `<option>${w}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Unit</label><select id="b_unit">${UNITS.map(u => `<option>${u}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Qty (as per plan)</label><input type="number" id="b_qty" placeholder="0.00" step="0.001"/></div>
+      <div class="form-group"><label>Remark</label><input type="text" id="b_remark" placeholder="Optional..."/></div>
+    </div>
+    <div class="action-row"><button class="btn-save" onclick="addBuildingRecord()">Save Entry</button></div>
+    <div class="divider"></div>`;
+    } else {
+      html += `<div class="access-notice">&#128274; Building entries can only be added by Owner. You are logged in as ${roleBadge(currentUser)}.</div>`;
+    }
+
+    html += `<div class="section-title">Building Records</div>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th style="width:40px">#</th>
+      <th style="width:100px">Tower</th>
+      <th style="width:100px">Floor</th>
+      <th style="width:90px">Location</th>
+      <th style="width:70px">Type</th>
+      <th style="width:90px">Work</th>
+      <th style="width:60px">Unit</th>
+      <th style="width:70px">Qty</th>
+      <th style="width:80px">Contractor</th>
+      <th style="width:70px">Status</th>
+    </tr></thead>
+    <tbody>`;
+
+    if (buildingRecords.length === 0) {
+      html += `<tr><td colspan="10" class="empty-state">No records yet. Add entries above.</td></tr>`;
+    } else {
+      buildingRecords.forEach((r, i) => {
+        const ctr = contractorRecords.find(c => c.id === r.contractorId);
+        html += `<tr>
+        <td style="color:var(--color-text-tertiary)">${i + 1}</td>
+        <td>${r.tower}</td>
+        <td style="font-size:11px">${r.floor}</td>
+        <td>${r.location || '—'}</td>
+        <td><span class="status-pill ${r.intExt === 'INTERNAL' ? 'pill-int' : 'pill-ext'}" style="font-size:10px">${r.intExt === 'INTERNAL' ? 'INT' : 'EXT'}</span></td>
+        <td style="font-size:11px">${r.workType}</td>
+        <td>${r.unitSqm}</td>
+        <td>${r.qty || '—'}</td>
+        <td style="font-size:11px">${ctr ? ctr.name : '<span style="color:var(--color-text-tertiary)">Unassigned</span>'}</td>
+        <td><span class="status-pill ${r.billed ? 'pill-billed' : 'pill-pending'}">${r.billed ? 'Billed' : 'Pending'}</span></td>
+      </tr>`;
+      });
+    }
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  function addBuildingRecord() {
+    const tower = document.getElementById('b_tower').value;
+    const floor = document.getElementById('b_floor').value;
+    const location = document.getElementById('b_location').value;
+    const intExt = document.getElementById('b_intExt').value;
+    const workType = document.getElementById('b_workType').value;
+    const unit = document.getElementById('b_unit').value;
+    const qty = parseFloat(document.getElementById('b_qty').value) || 0;
+    const remark = document.getElementById('b_remark').value;
+    if (!tower || !floor || !intExt || !workType) { showToast('Please fill all required fields'); return; }
+    buildingRecords.push({ id: nextId++, tower, floor, location, intExt, workType, unitSqm: unit, qty, remark, contractorId: null, billNo: '', billQty: null, billFile: null, billed: false });
+    showToast('Building entry saved successfully');
+    render();
+  }
+
+  function renderContractorTab() {
+    const p = ROLE_PERMS[currentUser];
+    let html = '';
+    if (p.canAddContractor) {
+      html += `<div class="section-title">Assign Contractor to Entry <span class="inline-tag tag-engineer">engineer only</span></div>
+    <div class="form-grid">
+      <div class="form-group"><label>Select Building Entry</label><select id="c_record"><option value="">Select entry...</option>${buildingRecords.filter(r => !r.contractorId).map(r => `<option value="${r.id}">${r.tower} | ${r.floor} | ${r.workType} (${r.qty} ${r.unitSqm})</option>`).join('')}</select></div>
+      <div class="form-group"><label>Contractor Name</label><select id="c_name"><option value="">Select contractor...</option>${CONTRACTORS.map(c => `<option>${c}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Bill Reference No.</label><input type="text" id="c_billRef" placeholder="e.g. RA-01"/></div>
+      <div class="form-group"><label>No. of Coats</label><input type="number" id="c_coats" min="1" max="10" placeholder="e.g. 5"/></div>
+      <div class="form-group"><label>Contractor Size / Capacity</label><select id="c_size"><option>Small</option><option selected>Medium</option><option>Large</option></select></div>
+    </div>
+    <div class="action-row"><button class="btn-save" onclick="addContractorRecord()">Assign Contractor</button></div>
+    <div class="divider"></div>`;
+    } else {
+      html += `<div class="access-notice">&#128274; Contractor assignment is only done by Engineer. You are logged in as ${roleBadge(currentUser)}.</div>`;
+    }
+
+    html += `<div class="section-title">Contractor Assignments</div>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th style="width:40px">#</th>
+      <th style="width:100px">Tower</th>
+      <th style="width:90px">Floor</th>
+      <th style="width:100px">Contractor</th>
+      <th style="width:80px">Bill Ref</th>
+      <th style="width:60px">Coats</th>
+      <th style="width:80px">Work Type</th>
+      <th style="width:70px">Qty</th>
+      <th style="width:60px">Size</th>
+      <th style="width:70px">Status</th>
+    </tr></thead>
+    <tbody>`;
+
+    const assigned = buildingRecords.filter(r => r.contractorId);
+    if (assigned.length === 0) {
+      html += `<tr><td colspan="10" class="empty-state">No contractor assignments yet.</td></tr>`;
+    } else {
+      assigned.forEach((r, i) => {
+        const ctr = contractorRecords.find(c => c.id === r.contractorId);
+        html += `<tr>
+        <td style="color:var(--color-text-tertiary)">${i + 1}</td>
+        <td>${r.tower}</td>
+        <td style="font-size:11px">${r.floor}</td>
+        <td>${ctr ? ctr.name : '—'}</td>
+        <td style="font-size:11px">${ctr ? ctr.billRef : '—'}</td>
+        <td style="text-align:center">${ctr ? ctr.coats : '—'}</td>
+        <td style="font-size:11px">${r.workType}</td>
+        <td>${r.qty} ${r.unitSqm}</td>
+        <td>${ctr ? ctr.size : '—'}</td>
+        <td><span class="status-pill ${r.billed ? 'pill-billed' : 'pill-pending'}">${r.billed ? 'Billed' : 'Active'}</span></td>
+      </tr>`;
+      });
+    }
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  function addContractorRecord() {
+    const recId = parseInt(document.getElementById('c_record').value);
+    const name = document.getElementById('c_name').value;
+    const billRef = document.getElementById('c_billRef').value;
+    const coats = parseInt(document.getElementById('c_coats').value) || 1;
+    const size = document.getElementById('c_size').value;
+    if (!recId || !name) { showToast('Please select entry and contractor'); return; }
+    const ctr = { id: nextContractorId++, name, billRef, coats, size };
+    contractorRecords.push(ctr);
+    const rec = buildingRecords.find(r => r.id === recId);
+    if (rec) { rec.contractorId = ctr.id; rec.billNo = billRef; }
+    showToast('Contractor assigned successfully');
+    render();
+  }
+
+  function renderBillingTab() {
+    const p = ROLE_PERMS[currentUser];
+    let html = '';
+    const billable = buildingRecords.filter(r => r.contractorId && !r.billed);
+    const billed = buildingRecords.filter(r => r.billed);
+
+    if (p.canAddBill) {
+      html += `<div class="section-title">Submit Bill <span class="inline-tag tag-contractor">contractor only</span></div>`;
+      if (billable.length === 0) {
+        html += `<div class="access-notice" style="background:var(--color-background-info);color:var(--color-text-info)">&#10003; All assigned entries have been billed or no entries are assigned yet.</div>`;
+      } else {
+        html += `<div class="form-grid">
+        <div class="form-group"><label>Select Entry to Bill</label><select id="bill_record"><option value="">Select entry...</option>${billable.map(r => { const ctr = contractorRecords.find(c => c.id === r.contractorId); return `<option value="${r.id}">${r.tower} | ${r.floor} | ${ctr ? ctr.name : ''} | ${r.workType}</option>` }).join('')}</select></div>
+        <div class="form-group"><label>Bill No.</label><input type="text" id="bill_no" placeholder="e.g. RA-08"/></div>
+        <div class="form-group"><label>Qty as per Bill (SQM)</label><input type="number" id="bill_qty" step="0.001" placeholder="0.000"/></div>
+        <div class="form-group"><label>Upload Bill Document</label>
+          <div class="upload-zone" onclick="document.getElementById('bill_file').click()">
+            &#128196; Click to upload bill (PDF/JPG)
+            <div id="file_name" class="file-name"></div>
+          </div>
+          <input type="file" id="bill_file" style="display:none" onchange="document.getElementById('file_name').textContent=this.files[0]?this.files[0].name:''">
+        </div>
+        <div class="form-group"><label>Remark</label><input type="text" id="bill_remark" placeholder="Optional note..."/></div>
+      </div>
+      <div class="action-row"><button class="btn-save" onclick="submitBill()">Submit Bill</button></div>
+      <div class="divider"></div>`;
+      }
+    } else {
+      html += `<div class="access-notice">&#128274; Bill submission is only done by Contractor. You are logged in as ${roleBadge(currentUser)}.</div>`;
+    }
+
+    html += `<div style="display:flex;gap:16px;margin-bottom:12px">
+    <div class="stat-card" style="flex:1;text-align:center;padding:10px 12px"><div class="stat-n">${billed.length}</div><div class="stat-l">Bills Submitted</div></div>
+    <div class="stat-card" style="flex:1;text-align:center;padding:10px 12px"><div class="stat-n">${billable.length}</div><div class="stat-l">Pending Billing</div></div>
+    <div class="stat-card" style="flex:1;text-align:center;padding:10px 12px"><div class="stat-n">${buildingRecords.filter(r => !r.contractorId).length}</div><div class="stat-l">Not Assigned</div></div>
+  </div>`;
+
+    html += `<div class="section-title">Billing Records</div>
+  <div class="table-wrap"><table>
+    <thead><tr>
+      <th style="width:40px">#</th>
+      <th style="width:90px">Tower</th>
+      <th style="width:80px">Floor</th>
+      <th style="width:90px">Contractor</th>
+      <th style="width:80px">Bill No.</th>
+      <th style="width:80px">Work Type</th>
+      <th style="width:70px">Plan Qty</th>
+      <th style="width:70px">Bill Qty</th>
+      <th style="width:60px">Diff</th>
+      <th style="width:70px">Status</th>
+    </tr></thead>
+    <tbody>`;
+
+    const allBilledOrAssigned = buildingRecords.filter(r => r.contractorId);
+    if (allBilledOrAssigned.length === 0) {
+      html += `<tr><td colspan="10" class="empty-state">No billing records yet.</td></tr>`;
+    } else {
+      allBilledOrAssigned.forEach((r, i) => {
+        const ctr = contractorRecords.find(c => c.id === r.contractorId);
+        const diff = r.billed && r.billQty != null ? (r.billQty - r.qty).toFixed(3) : '—';
+        const diffColor = r.billed && parseFloat(diff) !== 0 ? 'color:#D85A30' : 'color:var(--color-text-tertiary)';
+        html += `<tr>
+        <td style="color:var(--color-text-tertiary)">${i + 1}</td>
+        <td>${r.tower}</td>
+        <td style="font-size:11px">${r.floor}</td>
+        <td>${ctr ? ctr.name : '—'}</td>
+        <td style="font-size:11px">${r.billNo || '—'}</td>
+        <td style="font-size:11px">${r.workType}</td>
+        <td>${r.qty} ${r.unitSqm}</td>
+        <td>${r.billed ? r.billQty : '<span style="color:var(--color-text-tertiary)">—</span>'}</td>
+        <td style="${diffColor}">${diff}</td>
+        <td><span class="status-pill ${r.billed ? 'pill-billed' : 'pill-pending'}">${r.billed ? 'Billed' : 'Pending'}</span></td>
+      </tr>`;
+      });
+    }
+    html += `</tbody></table></div>`;
+    return html;
+  }
+
+  function submitBill() {
+    const recId = parseInt(document.getElementById('bill_record').value);
+    const billNo = document.getElementById('bill_no').value;
+    const billQty = parseFloat(document.getElementById('bill_qty').value);
+    const fileEl = document.getElementById('bill_file');
+    if (!recId) { showToast('Please select an entry to bill'); return; }
+    if (!billNo) { showToast('Please enter a bill number'); return; }
+    if (isNaN(billQty) || billQty <= 0) { showToast('Please enter a valid quantity'); return; }
+    const rec = buildingRecords.find(r => r.id === recId);
+    if (rec) {
+      if (rec.billed) { showToast('This entry has already been billed'); return; }
+      rec.billed = true;
+      rec.billNo = billNo;
+      rec.billQty = billQty;
+      rec.billFile = fileEl.files[0] ? fileEl.files[0].name : null;
+    }
+    showToast('Bill submitted successfully');
+    render();
+  }
+
+  render();
+</script>

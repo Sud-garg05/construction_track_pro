@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ocean">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaintTrack Pro — Grand Residence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── THEME TOKENS ── */
+:root[data-theme="ocean"] {
+  --bg-base:       #0d1b2e;
+  --bg-surface:    #112240;
+  --bg-card:       #162d4a;
+  --bg-hover:      #1a3557;
+  --bg-input:      #0d1b2e;
+  --accent:        #38bdf8;
+  --accent2:       #6ee7b7;
+  --accent-glow:   rgba(56,189,248,0.18);
+  --border:        rgba(56,189,248,0.15);
+  --border-strong: rgba(56,189,248,0.35);
+  --text-primary:  #e2eaf4;
+  --text-secondary:#8baac8;
+  --text-muted:    #4d6d8e;
+  --pill-strong-bg:#064e3b;  --pill-strong:#6ee7b7;
+  --pill-pending-bg:#1e3a5f; --pill-pending:#93c5fd;
+  --pill-billed-bg:#14532d;  --pill-billed:#4ade80;
+  --pill-int-bg:   #1e3a5f;  --pill-int:   #93c5fd;
+  --pill-ext-bg:   #3b1f14;  --pill-ext:   #fb923c;
+  --danger-bg:     #3b1414;  --danger:     #f87171;
+  --sidebar-bg:    #0a1628;
+  --topbar-bg:     #0a1628;
+}
+:root[data-theme="dark"] {
+  --bg-base:       #111827;
+  --bg-surface:    #1f2937;
+  --bg-card:       #253040;
+  --bg-hover:      #2d3a4e;
+  --bg-input:      #111827;
+  --accent:        #a78bfa;
+  --accent2:       #f472b6;
+  --accent-glow:   rgba(167,139,250,0.15);
+  --border:        rgba(167,139,250,0.15);
+  --border-strong: rgba(167,139,250,0.35);
+  --text-primary:  #f1f5f9;
+  --text-secondary:#94a3b8;
+  --text-muted:    #475569;
+  --pill-strong-bg:#1e1b4b;  --pill-strong:#a5b4fc;
+  --pill-pending-bg:#1e293b; --pill-pending:#94a3b8;
+  --pill-billed-bg:#14532d;  --pill-billed:#4ade80;
+  --pill-int-bg:   #1e293b;  --pill-int:   #93c5fd;
+  --pill-ext-bg:   #3b1f14;  --pill-ext:   #fb923c;
+  --danger-bg:     #3b1414;  --danger:     #f87171;
+  --sidebar-bg:    #0f172a;
+  --topbar-bg:     #0f172a;
+}
+:root[data-theme="sunset"] {
+  --bg-base:       #1a0a0f;
+  --bg-surface:    #2a1018;
+  --bg-card:       #361520;
+  --bg-hover:      #421a28;
+  --bg-input:      #1a0a0f;
+  --accent:        #fb923c;
+  --accent2:       #f472b6;
+  --accent-glow:   rgba(251,146,60,0.15);
+  --border:        rgba(251,146,60,0.18);
+  --border-strong: rgba(251,146,60,0.4);
+  --text-primary:  #fde8d0;
+  --text-secondary:#c4856a;
+  --text-muted:    #7a4535;
+  --pill-strong-bg:#431407;  --pill-strong:#fdba74;
+  --pill-pending-bg:#2d1a0a; --pill-pending:#fcd34d;
+  --pill-billed-bg:#14532d;  --pill-billed:#4ade80;
+  --pill-int-bg:   #1e293b;  --pill-int:   #93c5fd;
+  --pill-ext-bg:   #431407;  --pill-ext:   #fb923c;
+  --danger-bg:     #3b1414;  --danger:     #f87171;
+  --sidebar-bg:    #120508;
+  --topbar-bg:     #120508;
+}
+:root[data-theme="forest"] {
+  --bg-base:       #0a1a0f;
+  --bg-surface:    #102518;
+  --bg-card:       #163020;
+  --bg-hover:      #1c3c28;
+  --bg-input:      #0a1a0f;
+  --accent:        #4ade80;
+  --accent2:       #a3e635;
+  --accent-glow:   rgba(74,222,128,0.15);
+  --border:        rgba(74,222,128,0.15);
+  --border-strong: rgba(74,222,128,0.35);
+  --text-primary:  #dcfce7;
+  --text-secondary:#6db885;
+  --text-muted:    #3a6b4a;
+  --pill-strong-bg:#14532d;  --pill-strong:#4ade80;
+  --pill-pending-bg:#1a3520; --pill-pending:#a3e635;
+  --pill-billed-bg:#14532d;  --pill-billed:#4ade80;
+  --pill-int-bg:   #1e3a5f;  --pill-int:   #93c5fd;
+  --pill-ext-bg:   #3b2a0a;  --pill-ext:   #fbbf24;
+  --danger-bg:     #3b1414;  --danger:     #f87171;
+  --sidebar-bg:    #061008;
+  --topbar-bg:     #061008;
+}
+:root[data-theme="light"] {
+  --bg-base:       #f0f4f8;
+  --bg-surface:    #ffffff;
+  --bg-card:       #ffffff;
+  --bg-hover:      #f1f5f9;
+  --bg-input:      #f8fafc;
+  --accent:        #0ea5e9;
+  --accent2:       #10b981;
+  --accent-glow:   rgba(14,165,233,0.12);
+  --border:        rgba(0,0,0,0.10);
+  --border-strong: rgba(14,165,233,0.4);
+  --text-primary:  #0f172a;
+  --text-secondary:#475569;
+  --text-muted:    #94a3b8;
+  --pill-strong-bg:#dcfce7;  --pill-strong:#15803d;
+  --pill-pending-bg:#eff6ff; --pill-pending:#1d4ed8;
+  --pill-billed-bg:#dcfce7;  --pill-billed:#15803d;
+  --pill-int-bg:   #eff6ff;  --pill-int:   #1d4ed8;
+  --pill-ext-bg:   #fff7ed;  --pill-ext:   #c2410c;
+  --danger-bg:     #fef2f2;  --danger:     #dc2626;
+  --sidebar-bg:    #1e293b;
+  --topbar-bg:     #1e293b;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg-base);color:var(--text-primary);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--topbar-bg);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--text-primary)}
+.logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:14px}
+.logo-sub{font-size:11px;color:var(--text-muted);font-weight:400;margin-left:4px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.event-badge{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:0.03em}
+.username{font-size:12px;color:var(--text-secondary);padding:4px 10px;background:var(--bg-surface);border:1px solid var(--border);border-radius:20px}
+
+/* Theme picker */
+.theme-picker{position:relative}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-surface);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:12px;color:var(--text-secondary);font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.theme-btn:hover{border-color:var(--border-strong);color:var(--text-primary)}
+.theme-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.theme-dropdown{position:absolute;right:0;top:calc(100% + 8px);background:var(--bg-surface);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:150px;display:none;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.theme-dropdown.open{display:block}
+.theme-option{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text-secondary);transition:all 0.12s}
+.theme-option:hover{background:var(--bg-hover);color:var(--text-primary)}
+.theme-option.active{color:var(--text-primary);font-weight:500}
+.theme-option .check{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.theme-option.active .check{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* ── LAYOUT ── */
+.shell{display:flex;flex:1;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{width:210px;flex-shrink:0;background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:16px 0}
+.nav-label{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;padding:0 16px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-left:2px solid transparent;transition:all 0.15s;margin-bottom:2px}
+.nav-item:hover{color:var(--text-primary);background:var(--bg-hover)}
+.nav-item.active{color:var(--accent);background:var(--accent-glow);border-left-color:var(--accent);font-weight:500}
+.nav-icon{width:16px;text-align:center;font-size:14px;opacity:0.8}
+.sidebar-footer{margin-top:auto;padding:12px 16px;border-top:1px solid var(--border)}
+.stats-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px}
+.stats-title{font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px}
+.stat-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.stat-label{color:var(--text-secondary)}
+.stat-val{color:var(--accent);font-weight:600;font-family:'DM Mono',monospace}
+
+/* ── MAIN ── */
+.main{flex:1;overflow-y:auto;padding:0}
+
+/* ── TABS ── */
+.tabs-bar{background:var(--bg-surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:4px;position:sticky;top:0;z-index:50}
+.tab{padding:14px 18px;font-size:13px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tab:hover{color:var(--text-primary)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+.tab.locked{opacity:0.35;cursor:not-allowed;pointer-events:none}
+.tab-badge{font-size:10px;padding:1px 6px;border-radius:8px;font-weight:600}
+
+/* ── CONTENT ── */
+.content{padding:24px}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.metric{background:var(--bg-surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;transition:border-color 0.15s}
+.metric:hover{border-color:var(--border-strong)}
+.metric-val{font-size:26px;font-weight:600;color:var(--text-primary);line-height:1;font-family:'DM Mono',monospace}
+.metric-label{font-size:11px;color:var(--text-muted);margin-top:5px;text-transform:uppercase;letter-spacing:0.05em}
+.metric-accent{color:var(--accent)}
+
+/* ── SECTION HEADER ── */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;display:flex;align-items:center;gap:8px}
+.role-tag{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.tag-owner{background:rgba(74,222,128,0.15);color:var(--accent2)}
+.tag-engineer{background:rgba(56,189,248,0.15);color:var(--accent)}
+.tag-contractor{background:rgba(251,146,60,0.15);color:#fb923c}
+
+/* ── FORM ── */
+.form-panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em}
+.field input,.field select,.field textarea{background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--text-primary);font-family:'DM Sans',sans-serif;width:100%;transition:border-color 0.15s,box-shadow 0.15s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.field select option{background:var(--bg-card)}
+.btn-save{padding:9px 24px;background:var(--accent);color:#000;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s;display:flex;align-items:center;gap:6px}
+.btn-save:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-save:active{transform:translateY(0)}
+.btn-save:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+.form-actions{display:flex;justify-content:flex-end;padding-top:4px}
+
+/* ── ALERT ── */
+.alert{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:12px;margin-bottom:20px;border:1px solid}
+.alert-warning{background:rgba(251,146,60,0.1);border-color:rgba(251,146,60,0.25);color:#fb923c}
+.alert-info{background:var(--accent-glow);border-color:var(--border-strong);color:var(--accent)}
+
+/* ── TABLE ── */
+.table-panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+thead{background:var(--bg-card)}
+th{padding:11px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text-secondary);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg-hover);color:var(--text-primary)}
+.empty-state{padding:48px 20px;text-align:center;color:var(--text-muted);font-size:13px}
+
+/* ── PILLS ── */
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.04em;white-space:nowrap}
+.pill-strong{background:var(--pill-strong-bg);color:var(--pill-strong)}
+.pill-pending{background:var(--pill-pending-bg);color:var(--pill-pending)}
+.pill-billed{background:var(--pill-billed-bg);color:var(--pill-billed)}
+.pill-int{background:var(--pill-int-bg);color:var(--pill-int)}
+.pill-ext{background:var(--pill-ext-bg);color:var(--pill-ext)}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{border:1.5px dashed var(--border-strong);border-radius:8px;padding:14px;text-align:center;font-size:12px;color:var(--text-secondary);cursor:pointer;transition:all 0.15s;margin-top:2px}
+.upload-zone:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+.file-picked{font-size:11px;color:var(--accent);margin-top:4px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;background:var(--accent);color:#000;font-size:13px;font-weight:600;border-radius:10px;transform:translateY(80px);opacity:0;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);z-index:999;pointer-events:none;font-family:'DM Sans',sans-serif}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:20px 0}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon">🎨</div>
+    PaintTrack <span style="color:var(--accent);margin-left:4px">Pro</span>
+    <span class="logo-sub">Grand Residence</span>
+  </div>
+  <div class="topbar-right">
+    <div class="event-badge">Construction Mgmt 2026</div>
+    <div class="username">Admin User</div>
+
+    <!-- THEME PICKER -->
+    <div class="theme-picker" id="themePicker">
+      <button class="theme-btn" onclick="toggleThemeMenu()">
+        <span class="theme-dot" id="activeDot" style="background:linear-gradient(135deg,#38bdf8,#6ee7b7)"></span>
+        <span id="activeThemeName">Ocean</span>
+        <span style="font-size:9px;opacity:0.6">▼</span>
+      </button>
+      <div class="theme-dropdown" id="themeDropdown">
+        <div class="theme-option" onclick="setTheme('dark')" data-t="dark">
+          <div class="check" id="chk-dark"></div>
+          <span class="theme-dot" style="background:linear-gradient(135deg,#a78bfa,#f472b6)"></span>
+          Dark
+        </div>
+        <div class="theme-option active" onclick="setTheme('ocean')" data-t="ocean">
+          <div class="check" id="chk-ocean">✓</div>
+          <span class="theme-dot" style="background:linear-gradient(135deg,#38bdf8,#6ee7b7)"></span>
+          Ocean
+        </div>
+        <div class="theme-option" onclick="setTheme('sunset')" data-t="sunset">
+          <div class="check" id="chk-sunset"></div>
+          <span class="theme-dot" style="background:linear-gradient(135deg,#fb923c,#f472b6)"></span>
+          Sunset
+        </div>
+        <div class="theme-option" onclick="setTheme('forest')" data-t="forest">
+          <div class="check" id="chk-forest"></div>
+          <span class="theme-dot" style="background:linear-gradient(135deg,#4ade80,#a3e635)"></span>
+          Forest
+        </div>
+        <div class="theme-option" onclick="setTheme('light')" data-t="light">
+          <div class="check" id="chk-light"></div>
+          <span class="theme-dot" style="background:linear-gradient(135deg,#0ea5e9,#10b981)"></span>
+          Light
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="nav-label">Navigation</div>
+    <div class="nav-item active" onclick="setTab(0);setSideNav(this)">
+      <span class="nav-icon">🏢</span> Building Details
+    </div>
+    <div class="nav-item" onclick="setTab(1);setSideNav(this)">
+      <span class="nav-icon">🔨</span> Contractor Details
+    </div>
+    <div class="nav-item" onclick="setTab(2);setSideNav(this)">
+      <span class="nav-icon">📄</span> Billing
+    </div>
+    <div class="nav-item" onclick="setTab(3);setSideNav(this)">
+      <span class="nav-icon">📊</span> Analytics
+    </div>
+    <div class="nav-item" onclick="setTab(4);setSideNav(this)">
+      <span class="nav-icon">⚙️</span> Settings
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="stats-card">
+        <div class="stats-title">Session Stats</div>
+        <div class="stat-row"><span class="stat-label">Entries</span><span class="stat-val" id="sb-entries">3</span></div>
+        <div class="stat-row"><span class="stat-label">Billed</span><span class="stat-val" id="sb-billed">0</span></div>
+        <div class="stat-row"><span class="stat-label">Pending</span><span class="stat-val" id="sb-pending">3</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TABS BAR -->
+    <div class="tabs-bar">
+      <div class="tab active" id="tab0" onclick="setTab(0)">🏢 Building Details</div>
+      <div class="tab" id="tab1" onclick="setTab(1)">🔨 Contractor Details</div>
+      <div class="tab" id="tab2" onclick="setTab(2)">📄 Billing</div>
+    </div>
+
+    <!-- USER SWITCHER -->
+    <div style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600">Role:</span>
+      <button class="role-switch active" data-r="owner" onclick="switchUser('owner')">Owner</button>
+      <button class="role-switch" data-r="engineer" onclick="switchUser('engineer')">Engineer</button>
+      <button class="role-switch" data-r="contractor" onclick="switchUser('contractor')">Contractor</button>
+    </div>
+
+    <div class="content" id="mainContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<style>
+.role-switch{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.role-switch:hover{border-color:var(--border-strong);color:var(--text-primary)}
+.role-switch.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600}
+</style>
+
+<script>
+const TOWERS=['TOWER A','TOWER B','TOWER A,B','TOWER C,D','PODIUM','CLUBHOUSE','HJ HOSPITAL','SERVICE FLOOR'];
+const FLOORS=['BASEMENT FLOOR','STILT FLOOR','GROUND FLOOR','1ST FLOOR','2ND FLOOR','3RD FLOOR','4TH FLOOR','5TH FLOOR','6TH FLOOR','7TH FLOOR','8TH FLOOR','9TH FLOOR','10TH FLOOR','11TH FLOOR','12TH FLOOR','13TH FLOOR','14TH FLOOR','15TH FLOOR','16TH FLOOR','17TH FLOOR','18TH FLOOR','19TH FLOOR','TERRACE FLOOR','ALL FLOOR'];
+const LOCS=['FLAT CEILING','BALCONY CEILING','TEXTURE-WALL','FLAT WALL','CEILING','CORRIDOR','PARKING','STAIRCASE-01','STAIRCASE-02','BALCONY TEXTURE-WALL','FALSE CEILING','GYPSUM CEILING','CONCRETE CEILING','BATHROOM','CORRIDOR CUTOUT','SERVICE LIFT LOBBY','LIFT LOBBY','ELECTRICAL ROOM','SERVENT TOILET'];
+const CTRS=['ADVAMEDIX','SK TRADING & CONSTRUCTION','MNIC COLOUR ASSOCIATES','NEW ARTS & INTERIA','AHL','SS CONSTRUCTION','MS CONSTRUCTION','VISHAL CONSTRUCTION','OTHER'];
+const WTYPES=['FLAT CEILING','BALCONY CEILING','TEXTURE-WALL','FLAT WALL','CEILING','FALSE CEILING','GYPSUM CEILING','CONCRETE CEILING','WALL PAINT','SLAB BOTTOM','METAL WALL'];
+const UNITS=['SQM','RMT','NOS'];
+
+const THEME_META={
+  ocean:{dot:'linear-gradient(135deg,#38bdf8,#6ee7b7)',name:'Ocean'},
+  dark:{dot:'linear-gradient(135deg,#a78bfa,#f472b6)',name:'Dark'},
+  sunset:{dot:'linear-gradient(135deg,#fb923c,#f472b6)',name:'Sunset'},
+  forest:{dot:'linear-gradient(135deg,#4ade80,#a3e635)',name:'Forest'},
+  light:{dot:'linear-gradient(135deg,#0ea5e9,#10b981)',name:'Light'},
+};
+
+let currentUser='owner', currentTab=0;
+let buildings=[
+  {id:1,tower:'TOWER A',floor:'13TH FLOOR',loc:'1301',ie:'INTERNAL',wtype:'FLAT CEILING',unit:'SQM',qty:189.98,remark:'',cid:null,billNo:'',billQty:null,billed:false},
+  {id:2,tower:'TOWER A',floor:'10TH FLOOR',loc:'CORRIDOR',ie:'EXTERNAL',wtype:'TEXTURE-WALL',unit:'SQM',qty:1702.313,remark:'',cid:null,billNo:'',billQty:null,billed:false},
+  {id:3,tower:'TOWER B',floor:'7TH,8TH,9TH FLOOR',loc:'701-703',ie:'INTERNAL',wtype:'FLAT CEILING',unit:'SQM',qty:1709.86,remark:'',cid:null,billNo:'',billQty:null,billed:false},
+];
+let contractors=[];
+let nextBid=4,nextCid=1;
+
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+
+function updateSidebar(){
+  const billed=buildings.filter(r=>r.billed).length;
+  document.getElementById('sb-entries').textContent=buildings.length;
+  document.getElementById('sb-billed').textContent=billed;
+  document.getElementById('sb-pending').textContent=buildings.length-billed;
+}
+
+function setTab(i){
+  currentTab=i;
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  render();
+}
+
+function setSideNav(el){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active')}
+
+function switchUser(r){
+  currentUser=r;
+  document.querySelectorAll('.role-switch').forEach(b=>{b.classList.toggle('active',b.dataset.r===r)});
+  render();
+}
+
+function toggleThemeMenu(){document.getElementById('themeDropdown').classList.toggle('open')}
+document.addEventListener('click',e=>{if(!document.getElementById('themePicker').contains(e.target))document.getElementById('themeDropdown').classList.remove('open')});
+
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('activeDot').style.background=THEME_META[t].dot;
+  document.getElementById('activeThemeName').textContent=THEME_META[t].name;
+  document.querySelectorAll('.theme-option').forEach(o=>{
+    const active=o.dataset.t===t;
+    o.classList.toggle('active',active);
+    document.getElementById('chk-'+o.dataset.t).textContent=active?'✓':'';
+  });
+  document.getElementById('themeDropdown').classList.remove('open');
+}
+
+function sel(opts,id,ph='Select...'){return`<select id="${id}"><option value="">${ph}</option>${opts.map(o=>`<option>${o}</option>`).join('')}</select>`}
+
+function render(){
+  if(currentTab===0) renderBuilding();
+  else if(currentTab===1) renderContractor();
+  else if(currentTab===2) renderBilling();
+  else{document.getElementById('mainContent').innerHTML=`<div class="empty-state" style="padding:80px 20px">🚧 <br><br>This section is coming soon.</div>`}
+  updateSidebar();
+}
+
+function renderBuilding(){
+  const canAdd=currentUser==='owner';
+  let h=`<div class="stat-strip">
+    <div class="metric"><div class="metric-val metric-accent">${buildings.length}</div><div class="metric-label">Total Entries</div></div>
+    <div class="metric"><div class="metric-val">${buildings.filter(r=>r.ie==='INTERNAL').length}</div><div class="metric-label">Internal</div></div>
+    <div class="metric"><div class="metric-val">${buildings.filter(r=>r.ie==='EXTERNAL').length}</div><div class="metric-label">External</div></div>
+    <div class="metric"><div class="metric-val">${buildings.filter(r=>r.billed).length}</div><div class="metric-label">Billed</div></div>
+  </div>`;
+
+  if(!canAdd){
+    h+=`<div class="alert alert-warning">🔒 Building entries can only be added by <strong>Owner</strong>. You are viewing as <strong>${currentUser}</strong>.</div>`;
+  } else {
+    h+=`<div class="section-head"><div class="section-title">Add Building Entry <span class="role-tag tag-owner">Owner</span></div></div>
+    <div class="form-panel">
+      <div class="form-grid">
+        <div class="field"><label>Tower</label>${sel(TOWERS,'b_tower','Select tower...')}</div>
+        <div class="field"><label>Floor</label>${sel(FLOORS,'b_floor','Select floor...')}</div>
+        <div class="field"><label>Location / Flat No.</label><input type="text" id="b_loc" placeholder="e.g. 1301, CORRIDOR..."/></div>
+        <div class="field"><label>Internal / External</label>${sel(['INTERNAL','EXTERNAL'],'b_ie','Select...')}</div>
+        <div class="field"><label>Work Type</label>${sel(WTYPES,'b_wtype','Select work type...')}</div>
+        <div class="field"><label>Unit</label>${sel(UNITS,'b_unit')}</div>
+        <div class="field"><label>Qty (as per plan)</label><input type="number" id="b_qty" placeholder="0.000" step="0.001"/></div>
+        <div class="field"><label>Remark</label><input type="text" id="b_remark" placeholder="Optional..."/></div>
+      </div>
+      <div class="form-actions"><button class="btn-save" onclick="addBuilding()">+ Save Entry</button></div>
+    </div>`;
+  }
+
+  h+=`<div class="section-head"><div class="section-title">Building Records</div></div>
+  <div class="table-panel"><table>
+    <thead><tr>
+      <th style="width:36px">#</th>
+      <th style="width:90px">Tower</th>
+      <th style="width:110px">Floor</th>
+      <th style="width:90px">Location</th>
+      <th style="width:65px">Type</th>
+      <th style="width:110px">Work</th>
+      <th style="width:50px">Unit</th>
+      <th style="width:80px">Qty</th>
+      <th style="width:110px">Contractor</th>
+      <th style="width:80px">Status</th>
+    </tr></thead><tbody>`;
+
+  if(!buildings.length){h+=`<tr><td colspan="10" class="empty-state">No records yet.</td></tr>`}
+  else buildings.forEach((r,i)=>{
+    const c=contractors.find(x=>x.id===r.cid);
+    h+=`<tr><td style="color:var(--text-muted);font-family:'DM Mono',monospace">${String(i+1).padStart(2,'0')}</td>
+      <td>${r.tower}</td><td style="font-size:11px">${r.floor}</td>
+      <td>${r.loc||'—'}</td>
+      <td><span class="pill ${r.ie==='INTERNAL'?'pill-int':'pill-ext'}">${r.ie==='INTERNAL'?'INT':'EXT'}</span></td>
+      <td style="font-size:11px">${r.wtype}</td><td>${r.unit}</td>
+      <td style="font-family:'DM Mono',monospace">${r.qty}</td>
+      <td style="font-size:11px">${c?c.name:`<span style="color:var(--text-muted)">Unassigned</span>`}</td>
+      <td><span class="pill ${r.billed?'pill-billed':'pill-pending'}">${r.billed?'Billed':'Pending'}</span></td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+  document.getElementById('mainContent').innerHTML=h;
+}
+
+function addBuilding(){
+  const v=(id)=>document.getElementById(id)?.value;
+  if(!v('b_tower')||!v('b_floor')||!v('b_ie')||!v('b_wtype')){toast('Please fill all required fields');return}
+  buildings.push({id:nextBid++,tower:v('b_tower'),floor:v('b_floor'),loc:v('b_loc'),ie:v('b_ie'),wtype:v('b_wtype'),unit:v('b_unit')||'SQM',qty:parseFloat(v('b_qty'))||0,remark:v('b_remark'),cid:null,billNo:'',billQty:null,billed:false});
+  toast('Building entry saved ✓');render();
+}
+
+function renderContractor(){
+  const canAdd=currentUser==='engineer';
+  let h='';
+  const unassigned=buildings.filter(r=>!r.cid);
+  if(!canAdd){
+    h+=`<div class="alert alert-warning">🔒 Contractor assignment is only done by <strong>Engineer</strong>. You are viewing as <strong>${currentUser}</strong>.</div>`;
+  } else {
+    h+=`<div class="section-head"><div class="section-title">Assign Contractor <span class="role-tag tag-engineer">Engineer</span></div></div>
+    <div class="form-panel">
+      <div class="form-grid">
+        <div class="field"><label>Building Entry</label><select id="c_rid"><option value="">Select entry...</option>${unassigned.map(r=>`<option value="${r.id}">${r.tower} | ${r.floor} | ${r.wtype} (${r.qty} ${r.unit})</option>`).join('')}</select></div>
+        <div class="field"><label>Contractor Name</label>${sel(CTRS,'c_name','Select contractor...')}</div>
+        <div class="field"><label>Bill Ref No.</label><input type="text" id="c_ref" placeholder="e.g. RA-01"/></div>
+        <div class="field"><label>No. of Coats</label><input type="number" id="c_coats" min="1" max="10" placeholder="e.g. 5"/></div>
+        <div class="field"><label>Capacity</label>${sel(['Small','Medium','Large'],'c_size')}</div>
+      </div>
+      <div class="form-actions"><button class="btn-save" onclick="addContractor()">Assign Contractor</button></div>
+    </div>`;
+  }
+
+  const assigned=buildings.filter(r=>r.cid);
+  h+=`<div class="section-head"><div class="section-title">Contractor Assignments</div></div>
+  <div class="table-panel"><table>
+    <thead><tr>
+      <th style="width:36px">#</th>
+      <th style="width:90px">Tower</th>
+      <th style="width:100px">Floor</th>
+      <th style="width:120px">Contractor</th>
+      <th style="width:80px">Bill Ref</th>
+      <th style="width:60px">Coats</th>
+      <th style="width:100px">Work Type</th>
+      <th style="width:90px">Qty</th>
+      <th style="width:70px">Size</th>
+      <th style="width:80px">Status</th>
+    </tr></thead><tbody>`;
+  if(!assigned.length){h+=`<tr><td colspan="10" class="empty-state">No contractor assignments yet.</td></tr>`}
+  else assigned.forEach((r,i)=>{
+    const c=contractors.find(x=>x.id===r.cid);
+    h+=`<tr><td style="color:var(--text-muted);font-family:'DM Mono',monospace">${String(i+1).padStart(2,'0')}</td>
+      <td>${r.tower}</td><td style="font-size:11px">${r.floor}</td>
+      <td>${c?c.name:'—'}</td><td style="font-family:'DM Mono',monospace;font-size:11px">${c?c.ref:'—'}</td>
+      <td style="text-align:center">${c?c.coats:'—'}</td>
+      <td style="font-size:11px">${r.wtype}</td>
+      <td style="font-family:'DM Mono',monospace">${r.qty} ${r.unit}</td>
+      <td>${c?c.size:'—'}</td>
+      <td><span class="pill ${r.billed?'pill-billed':'pill-pending'}">${r.billed?'Billed':'Active'}</span></td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+  document.getElementById('mainContent').innerHTML=h;
+}
+
+function addContractor(){
+  const v=(id)=>document.getElementById(id)?.value;
+  const rid=parseInt(v('c_rid'));
+  if(!rid||!v('c_name')){toast('Please select entry and contractor');return}
+  const rec=buildings.find(r=>r.id===rid);
+  if(!rec){return}
+  const c={id:nextCid++,name:v('c_name'),ref:v('c_ref'),coats:parseInt(v('c_coats'))||1,size:v('c_size')||'Medium'};
+  contractors.push(c);
+  rec.cid=c.id;rec.billNo=c.ref;
+  toast('Contractor assigned ✓');render();
+}
+
+function renderBilling(){
+  const canBill=currentUser==='contractor';
+  const billable=buildings.filter(r=>r.cid&&!r.billed);
+  const billed=buildings.filter(r=>r.billed);
+  let h=`<div class="stat-strip">
+    <div class="metric"><div class="metric-val metric-accent">${billed.length}</div><div class="metric-label">Bills Submitted</div></div>
+    <div class="metric"><div class="metric-val">${billable.length}</div><div class="metric-label">Pending Billing</div></div>
+    <div class="metric"><div class="metric-val">${buildings.filter(r=>!r.cid).length}</div><div class="metric-label">Not Assigned</div></div>
+    <div class="metric"><div class="metric-val">${buildings.length}</div><div class="metric-label">Total Entries</div></div>
+  </div>`;
+
+  if(!canBill){
+    h+=`<div class="alert alert-warning">🔒 Bill submission is only done by <strong>Contractor</strong>. You are viewing as <strong>${currentUser}</strong>.</div>`;
+  } else if(!billable.length){
+    h+=`<div class="alert alert-info">✓ All assigned entries have been billed, or no entries are assigned yet.</div>`;
+  } else {
+    h+=`<div class="section-head"><div class="section-title">Submit Bill <span class="role-tag tag-contractor">Contractor</span></div></div>
+    <div class="form-panel">
+      <div class="form-grid">
+        <div class="field"><label>Select Entry</label><select id="bill_rid"><option value="">Select entry...</option>${billable.map(r=>{const c=contractors.find(x=>x.id===r.cid);return`<option value="${r.id}">${r.tower} | ${r.floor} | ${c?c.name:''} | ${r.wtype}</option>`}).join('')}</select></div>
+        <div class="field"><label>Bill No.</label><input type="text" id="bill_no" placeholder="e.g. RA-08"/></div>
+        <div class="field"><label>Qty as per Bill</label><input type="number" id="bill_qty" step="0.001" placeholder="0.000"/></div>
+        <div class="field"><label>Upload Bill Document</label>
+          <div class="upload-zone" onclick="document.getElementById('billFile').click()">
+            📎 Click to attach bill (PDF / JPG)
+            <div id="fileName" class="file-picked"></div>
+          </div>
+          <input type="file" id="billFile" style="display:none" onchange="document.getElementById('fileName').textContent=this.files[0]?'📄 '+this.files[0].name:''"/>
+        </div>
+        <div class="field"><label>Remark</label><input type="text" id="bill_remark" placeholder="Optional..."/></div>
+      </div>
+      <div class="form-actions"><button class="btn-save" onclick="submitBill()">Submit Bill</button></div>
+    </div>`;
+  }
+
+  const all=buildings.filter(r=>r.cid);
+  h+=`<div class="section-head"><div class="section-title">Billing Records</div></div>
+  <div class="table-panel"><table>
+    <thead><tr>
+      <th style="width:36px">#</th>
+      <th style="width:90px">Tower</th>
+      <th style="width:100px">Floor</th>
+      <th style="width:120px">Contractor</th>
+      <th style="width:80px">Bill No.</th>
+      <th style="width:100px">Work Type</th>
+      <th style="width:75px">Plan Qty</th>
+      <th style="width:75px">Bill Qty</th>
+      <th style="width:70px">Diff</th>
+      <th style="width:80px">Status</th>
+    </tr></thead><tbody>`;
+  if(!all.length){h+=`<tr><td colspan="10" class="empty-state">No billing records yet.</td></tr>`}
+  else all.forEach((r,i)=>{
+    const c=contractors.find(x=>x.id===r.cid);
+    const diff=r.billed&&r.billQty!=null?(r.billQty-r.qty).toFixed(3):'—';
+    const diffCol=r.billed&&diff!=='—'&&parseFloat(diff)!==0?`color:var(--danger)`:`color:var(--text-muted)`;
+    h+=`<tr><td style="color:var(--text-muted);font-family:'DM Mono',monospace">${String(i+1).padStart(2,'0')}</td>
+      <td>${r.tower}</td><td style="font-size:11px">${r.floor}</td>
+      <td>${c?c.name:'—'}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px">${r.billNo||'—'}</td>
+      <td style="font-size:11px">${r.wtype}</td>
+      <td style="font-family:'DM Mono',monospace">${r.qty}</td>
+      <td style="font-family:'DM Mono',monospace">${r.billed?r.billQty:'—'}</td>
+      <td style="font-family:'DM Mono',monospace;${diffCol}">${diff}</td>
+      <td><span class="pill ${r.billed?'pill-billed':'pill-pending'}">${r.billed?'Billed':'Pending'}</span></td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+  document.getElementById('mainContent').innerHTML=h;
+}
+
+function submitBill(){
+  const v=(id)=>document.getElementById(id)?.value;
+  const rid=parseInt(v('bill_rid'));
+  if(!rid){toast('Please select an entry');return}
+  if(!v('bill_no')){toast('Please enter bill number');return}
+  const qty=parseFloat(v('bill_qty'));
+  if(isNaN(qty)||qty<=0){toast('Please enter a valid quantity');return}
+  const rec=buildings.find(r=>r.id===rid);
+  if(rec){if(rec.billed){toast('Already billed!');return}rec.billed=true;rec.billNo=v('bill_no');rec.billQty=qty}
+  toast('Bill submitted ✓');render();
+}
+
+render();
+</script>
+</body>
+</html>
