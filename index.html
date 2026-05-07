@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Construction Track Pro — Grand Residence</title>
+  <title>PaintTrack Pro — Grand Residence</title>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
@@ -856,6 +856,240 @@
       background: var(--border-strong);
       border-radius: 4px
     }
+
+    /* ── MULTISELECT ── */
+    .btn-select-all {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 4px;
+      display: block;
+      transition: all 0.12s
+    }
+
+    .btn-select-all:hover {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    .field select[multiple] {
+      height: 110px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px;
+      font-size: 12px;
+      color: var(--text-primary);
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.15s
+    }
+
+    .field select[multiple]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow)
+    }
+
+    .field select[multiple] option:checked {
+      background: var(--accent);
+      color: #000
+    }
+
+    /* ── MANUAL TOGGLE ── */
+    .field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px
+    }
+
+    .field-header label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em
+    }
+
+    .btn-manual {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      white-space: nowrap;
+      transition: all 0.12s
+    }
+
+    .btn-manual:hover,
+    .btn-manual.on {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow)
+    }
+
+    .f-list {
+      display: block
+    }
+
+    .f-manual {
+      display: none
+    }
+
+    /* ── SPLIT MODAL ── */
+    .modal-ov {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px)
+    }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 24px;
+      width: 360px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5)
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px
+    }
+
+    .modal-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px
+    }
+
+    .modal-acts {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 16px
+    }
+
+    .btn-cancel {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif
+    }
+
+    .btn-cancel:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary)
+    }
+
+    /* ── ANALYTICS ── */
+    .a-filters {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px
+    }
+
+    .a-filters .form-grid {
+      margin-bottom: 12px
+    }
+
+    .a-req {
+      color: var(--danger);
+      margin-left: 2px
+    }
+
+    .sum-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px
+    }
+
+    .sum-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: center
+    }
+
+    .sum-val {
+      font-size: 22px;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      color: var(--accent)
+    }
+
+    .sum-val.ok {
+      color: #4ade80
+    }
+
+    .sum-val.warn {
+      color: #fb923c
+    }
+
+    .sum-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px
+    }
+
+    .prog-wrap {
+      background: var(--bg-input);
+      border-radius: 4px;
+      height: 5px;
+      margin-top: 6px;
+      overflow: hidden
+    }
+
+    .prog-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px
+    }
+
+    .split-btn {
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-strong);
+      background: var(--accent-glow);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.12s;
+      white-space: nowrap
+    }
+
+    .split-btn:hover {
+      background: var(--accent);
+      color: #000
+    }
   </style>
 </head>
 
@@ -952,6 +1186,7 @@
         <div class="tab active" id="tab0" onclick="setTab(0)">🏢 Building Details</div>
         <div class="tab" id="tab1" onclick="setTab(1)">🔨 Contractor Details</div>
         <div class="tab" id="tab2" onclick="setTab(2)">📄 Billing</div>
+        <div class="tab" id="tab3" onclick="setTab(3)">📊 Analytics</div>
       </div>
 
       <!-- USER SWITCHER -->
@@ -1015,9 +1250,9 @@
 
     let currentUser = 'owner', currentTab = 0;
     let buildings = [
-      { id: 1, tower: 'TOWER A', floor: '13TH FLOOR', loc: '1301', ie: 'INTERNAL', wtype: 'FLAT CEILING', unit: 'SQM', qty: 189.98, remark: '', cid: null, billNo: '', billQty: null, billed: false },
-      { id: 2, tower: 'TOWER A', floor: '10TH FLOOR', loc: 'CORRIDOR', ie: 'EXTERNAL', wtype: 'TEXTURE-WALL', unit: 'SQM', qty: 1702.313, remark: '', cid: null, billNo: '', billQty: null, billed: false },
-      { id: 3, tower: 'TOWER B', floor: '7TH,8TH,9TH FLOOR', loc: '701-703', ie: 'INTERNAL', wtype: 'FLAT CEILING', unit: 'SQM', qty: 1709.86, remark: '', cid: null, billNo: '', billQty: null, billed: false },
+      { id: 1, buildingName: 'Grand Residence A', tower: 'TOWER A', floor: '13TH FLOOR', loc: '1301', ie: 'INTERNAL', wtype: 'FLAT CEILING', unit: 'SQM', qty: 189.98, completedQty: 0, remark: '', cid: null, billNo: '', billQty: null, billed: false },
+      { id: 2, buildingName: 'Grand Residence A', tower: 'TOWER A', floor: '10TH FLOOR', loc: 'CORRIDOR', ie: 'EXTERNAL', wtype: 'TEXTURE-WALL', unit: 'SQM', qty: 1702.313, completedQty: 0, remark: '', cid: null, billNo: '', billQty: null, billed: false },
+      { id: 3, buildingName: 'Grand Residence B', tower: 'TOWER B', floor: '7TH,8TH,9TH FLOOR', loc: '701-703', ie: 'INTERNAL', wtype: 'FLAT CEILING', unit: 'SQM', qty: 1709.86, completedQty: 0, remark: '', cid: null, billNo: '', billQty: null, billed: false },
     ];
     let contractors = [];
     let nextBid = 4, nextCid = 1;
@@ -1061,12 +1296,19 @@
     }
 
     function sel(opts, id, ph = 'Select...') { return `<select id="${id}"><option value="">${ph}</option>${opts.map(o => `<option>${o}</option>`).join('')}</select>` }
+    function msel(opts, id) { return `<button type="button" class="btn-select-all" onclick="selAll('${id}')">☑ Select All</button><select id="${id}" multiple>${opts.map(o => `<option value="${o}">${o}</option>`).join('')}</select>` }
+    function selAll(id) { const el = document.getElementById(id); if (el) Array.from(el.options).forEach(o => o.selected = true) }
+    function msVal(id) { const el = document.getElementById(id); if (!el) return ''; if (el.multiple) return Array.from(el.selectedOptions).map(o => o.value).filter(Boolean).join(', '); return el.value }
+    function togManual(wrapId, btnId) { const w = document.getElementById(wrapId); const b = document.getElementById(btnId); if (!w || !b) return; const l = w.querySelector('.f-list'); const m = w.querySelector('.f-manual'); const on = l.style.display === 'none'; l.style.display = on ? '' : 'none'; m.style.display = on ? 'none' : ''; b.textContent = on ? '\u270f Manual' : '← List'; b.classList.toggle('on', !on) }
+    function getFieldVal(wrapId, msId, manId) { const l = document.getElementById(wrapId)?.querySelector('.f-list'); if (l && l.style.display === 'none') return document.getElementById(manId)?.value || ''; return msVal(msId) }
+
 
     function render() {
       if (currentTab === 0) renderBuilding();
       else if (currentTab === 1) renderContractor();
       else if (currentTab === 2) renderBilling();
-      else { document.getElementById('mainContent').innerHTML = `<div class="empty-state" style="padding:80px 20px">🚧 <br><br>This section is coming soon.</div>` }
+      else if (currentTab === 3) renderAnalytics();
+      else document.getElementById('mainContent').innerHTML = `<div class="empty-state" style="padding:80px 20px">⚙️<br><br>Settings coming soon.</div>`;
       updateSidebar();
     }
 
@@ -1085,11 +1327,24 @@
         h += `<div class="section-head"><div class="section-title">Add Building Entry <span class="role-tag tag-owner">Owner</span></div></div>
     <div class="form-panel">
       <div class="form-grid">
-        <div class="field"><label>Tower</label>${sel(TOWERS, 'b_tower', 'Select tower...')}</div>
-        <div class="field"><label>Floor</label>${sel(FLOORS, 'b_floor', 'Select floor...')}</div>
+        <div class="field"><label>Building Name</label><input type="text" id="b_bname" placeholder="e.g. Grand Residence Block A"/></div>
+        <div class="field">
+          <div class="field-header"><label>Tower</label><button class="btn-manual" id="btog_tower" onclick="togManual('wrap_tower','btog_tower')">\u270f Manual</button></div>
+          <div id="wrap_tower"><div class="f-list">${msel(TOWERS, 'b_tower')}</div><div class="f-manual" style="display:none"><input type="text" id="b_tower_m" placeholder="e.g. TOWER A, TOWER B..."/></div></div>
+        </div>
+        <div class="field">
+          <div class="field-header"><label>Floor</label><button class="btn-manual" id="btog_floor" onclick="togManual('wrap_floor','btog_floor')">\u270f Manual</button></div>
+          <div id="wrap_floor"><div class="f-list">${msel(FLOORS, 'b_floor')}</div><div class="f-manual" style="display:none"><input type="text" id="b_floor_m" placeholder="e.g. 13TH FLOOR..."/></div></div>
+        </div>
         <div class="field"><label>Location / Flat No.</label><input type="text" id="b_loc" placeholder="e.g. 1301, CORRIDOR..."/></div>
-        <div class="field"><label>Internal / External</label>${sel(['INTERNAL', 'EXTERNAL'], 'b_ie', 'Select...')}</div>
-        <div class="field"><label>Work Type</label>${sel(WTYPES, 'b_wtype', 'Select work type...')}</div>
+        <div class="field">
+          <div class="field-header"><label>Int / Ext</label><button class="btn-manual" id="btog_ie" onclick="togManual('wrap_ie','btog_ie')">\u270f Manual</button></div>
+          <div id="wrap_ie"><div class="f-list">${sel(['INTERNAL', 'EXTERNAL'], 'b_ie', 'Select...')}</div><div class="f-manual" style="display:none"><input type="text" id="b_ie_m" placeholder="INTERNAL or EXTERNAL"/></div></div>
+        </div>
+        <div class="field">
+          <div class="field-header"><label>Work Type</label><button class="btn-manual" id="btog_wtype" onclick="togManual('wrap_wtype','btog_wtype')">\u270f Manual</button></div>
+          <div id="wrap_wtype"><div class="f-list">${sel(WTYPES, 'b_wtype', 'Select work type...')}</div><div class="f-manual" style="display:none"><input type="text" id="b_wtype_m" placeholder="e.g. FLAT CEILING..."/></div></div>
+        </div>
         <div class="field"><label>Unit</label>${sel(UNITS, 'b_unit')}</div>
         <div class="field"><label>Qty (as per plan)</label><input type="number" id="b_qty" placeholder="0.000" step="0.001"/></div>
         <div class="field"><label>Remark</label><input type="text" id="b_remark" placeholder="Optional..."/></div>
@@ -1132,9 +1387,14 @@
 
     function addBuilding() {
       const v = (id) => document.getElementById(id)?.value;
-      if (!v('b_tower') || !v('b_floor') || !v('b_ie') || !v('b_wtype')) { toast('Please fill all required fields'); return }
-      buildings.push({ id: nextBid++, tower: v('b_tower'), floor: v('b_floor'), loc: v('b_loc'), ie: v('b_ie'), wtype: v('b_wtype'), unit: v('b_unit') || 'SQM', qty: parseFloat(v('b_qty')) || 0, remark: v('b_remark'), cid: null, billNo: '', billQty: null, billed: false });
-      toast('Building entry saved ✓'); render();
+      const bname = v('b_bname') || '';
+      const tower = getFieldVal('wrap_tower', 'b_tower', 'b_tower_m');
+      const floor = getFieldVal('wrap_floor', 'b_floor', 'b_floor_m');
+      const ie = getFieldVal('wrap_ie', 'b_ie', 'b_ie_m');
+      const wtype = getFieldVal('wrap_wtype', 'b_wtype', 'b_wtype_m');
+      if (!tower || !floor || !ie || !wtype) { toast('Please fill Tower, Floor, Type and Work Type'); return }
+      buildings.push({ id: nextBid++, buildingName: bname, tower, floor, loc: v('b_loc'), ie, wtype, unit: v('b_unit') || 'SQM', qty: parseFloat(v('b_qty')) || 0, completedQty: 0, remark: v('b_remark'), cid: null, billNo: '', billQty: null, billed: false });
+      toast('Building entry saved \u2713'); render();
     }
 
     function renderContractor() {
@@ -1162,27 +1422,29 @@
   <div class="table-panel"><table>
     <thead><tr>
       <th style="width:36px">#</th>
-      <th style="width:90px">Tower</th>
-      <th style="width:100px">Floor</th>
-      <th style="width:120px">Contractor</th>
-      <th style="width:80px">Bill Ref</th>
-      <th style="width:60px">Coats</th>
-      <th style="width:100px">Work Type</th>
-      <th style="width:90px">Qty</th>
-      <th style="width:70px">Size</th>
-      <th style="width:80px">Status</th>
+      <th style="width:85px">Tower</th>
+      <th style="width:95px">Floor</th>
+      <th style="width:110px">Contractor</th>
+      <th style="width:70px">Bill Ref</th>
+      <th style="width:50px">Coats</th>
+      <th style="width:95px">Work Type</th>
+      <th style="width:80px">Qty</th>
+      <th style="width:60px">Size</th>
+      <th style="width:70px">Status</th>
+      <th style="width:70px">Action</th>
     </tr></thead><tbody>`;
-      if (!assigned.length) { h += `<tr><td colspan="10" class="empty-state">No contractor assignments yet.</td></tr>` }
+      if (!assigned.length) { h += `<tr><td colspan="11" class="empty-state">No contractor assignments yet.</td></tr>` }
       else assigned.forEach((r, i) => {
         const c = contractors.find(x => x.id === r.cid);
         h += `<tr><td style="color:var(--text-muted);font-family:'DM Mono',monospace">${String(i + 1).padStart(2, '0')}</td>
       <td>${r.tower}</td><td style="font-size:11px">${r.floor}</td>
-      <td>${c ? c.name : '—'}</td><td style="font-family:'DM Mono',monospace;font-size:11px">${c ? c.ref : '—'}</td>
-      <td style="text-align:center">${c ? c.coats : '—'}</td>
+      <td>${c ? c.name : '\u2014'}</td><td style="font-family:'DM Mono',monospace;font-size:11px">${c ? c.ref : '\u2014'}</td>
+      <td style="text-align:center">${c ? c.coats : '\u2014'}</td>
       <td style="font-size:11px">${r.wtype}</td>
       <td style="font-family:'DM Mono',monospace">${r.qty} ${r.unit}</td>
-      <td>${c ? c.size : '—'}</td>
+      <td>${c ? c.size : '\u2014'}</td>
       <td><span class="pill ${r.billed ? 'pill-billed' : 'pill-pending'}">${r.billed ? 'Billed' : 'Active'}</span></td>
+      <td><button class="split-btn" onclick="splitRow(${r.id})">&#9135; Split</button></td>
     </tr>`;
       });
       h += `</tbody></table></div>`;
@@ -1281,6 +1543,124 @@
       const rec = buildings.find(r => r.id === rid);
       if (rec) { if (rec.billed) { toast('Already billed!'); return } rec.billed = true; rec.billNo = v('bill_no'); rec.billQty = qty }
       toast('Bill submitted ✓'); render();
+    }
+    function splitRow(id) {
+      const r = buildings.find(x => x.id === id);
+      if (!r) return;
+      const ov = document.createElement('div'); ov.className = 'modal-ov'; ov.id = 'splitOv';
+      ov.innerHTML = `<div class="modal-box">
+        <div class="modal-title">&#9135; Split Assignment</div>
+        <div class="modal-sub">${r.tower} | ${r.floor} | ${r.wtype} &mdash; Total: <strong>${r.qty} ${r.unit}</strong></div>
+        <div class="field" style="margin-bottom:0">
+          <label>Split Qty (goes to new row)</label>
+          <input type="number" id="splitQtyInput" step="0.001" min="0.001" placeholder="0.000"
+            style="background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--text-primary);font-family:'DM Sans',sans-serif;width:100%"/>
+        </div>
+        <div class="modal-acts">
+          <button class="btn-cancel" onclick="document.getElementById('splitOv').remove()">Cancel</button>
+          <button class="btn-save" onclick="confirmSplit(${id})">Split Row</button>
+        </div>
+      </div>`;
+      document.body.appendChild(ov);
+      setTimeout(() => document.getElementById('splitQtyInput')?.focus(), 50);
+    }
+
+    function confirmSplit(id) {
+      const r = buildings.find(x => x.id === id);
+      const sq = parseFloat(document.getElementById('splitQtyInput')?.value);
+      if (!r || isNaN(sq) || sq <= 0 || sq >= r.qty) { toast('Enter a valid split qty (less than ' + r.qty + ')'); return; }
+      const newRow = { ...r, id: nextBid++, qty: sq, completedQty: 0, billNo: '', billQty: null, billed: false };
+      r.qty = parseFloat((r.qty - sq).toFixed(3));
+      const idx = buildings.findIndex(x => x.id === id);
+      buildings.splice(idx + 1, 0, newRow);
+      document.getElementById('splitOv')?.remove();
+      toast('Row split \u2713'); render();
+    }
+
+    function renderAnalytics() {
+      const bNames = [...new Set(buildings.map(r => r.buildingName || r.tower).filter(Boolean))];
+      const fA = document.getElementById('af_bname')?.value || '';
+      const fF = document.getElementById('af_floor')?.value || '';
+      const fL = document.getElementById('af_loc')?.value || '';
+      const fW = document.getElementById('af_work')?.value || '';
+      let filtered = buildings;
+      if (fA) filtered = filtered.filter(r => (r.buildingName || r.tower) === fA);
+      if (fF) filtered = filtered.filter(r => r.floor === fF);
+      if (fL) filtered = filtered.filter(r => r.loc === fL);
+      if (fW) filtered = filtered.filter(r => r.wtype === fW);
+      const srcB = fA ? buildings.filter(r => (r.buildingName || r.tower) === fA) : buildings;
+      const fFloors = [...new Set(srcB.map(r => r.floor))];
+      const fLocs = [...new Set(srcB.map(r => r.loc).filter(Boolean))];
+      const fWorks = [...new Set(buildings.map(r => r.wtype))];
+      const totalQty = filtered.reduce((s, r) => s + r.qty, 0);
+      const doneQty = filtered.reduce((s, r) => s + (r.billed && r.billQty != null ? r.billQty : r.completedQty || 0), 0);
+      const leftQty = Math.max(0, totalQty - doneQty);
+      const pct = totalQty > 0 ? Math.round(doneQty / totalQty * 100) : 0;
+      const parts = [fA, fF, fL, fW].filter(Boolean);
+      const desc = parts.join(' \u2022 ');
+      let h = `<div class="section-head"><div class="section-title">\ud83d\udcca Analytics</div></div>
+      <div class="a-filters">
+        <div class="form-grid">
+          <div class="field"><label>Building Name <span class="a-req">*</span></label>
+            <select id="af_bname" onchange="renderAnalytics()">
+              <option value="">All Buildings</option>
+              ${bNames.map(n => `<option ${n === fA ? 'selected' : ''}>${n}</option>`).join('')}
+            </select></div>
+          <div class="field"><label>Floor ${!fA ? '<small style="color:var(--text-muted)">(select building first)</small>' : ''}</label>
+            <select id="af_floor" onchange="renderAnalytics()" ${!fA ? 'disabled style="opacity:0.4"' : ''}>
+              <option value="">All Floors</option>
+              ${fFloors.map(f => `<option ${f === fF ? 'selected' : ''}>${f}</option>`).join('')}
+            </select></div>
+          <div class="field"><label>Location</label>
+            <select id="af_loc" onchange="renderAnalytics()" ${!fA ? 'disabled style="opacity:0.4"' : ''}>
+              <option value="">All Locations</option>
+              ${fLocs.map(l => `<option ${l === fL ? 'selected' : ''}>${l}</option>`).join('')}
+            </select></div>
+          <div class="field"><label>Work Type</label>
+            <select id="af_work" onchange="renderAnalytics()" ${!fA ? 'disabled style="opacity:0.4"' : ''}>
+              <option value="">All Work Types</option>
+              ${fWorks.map(w => `<option ${w === fW ? 'selected' : ''}>${w}</option>`).join('')}
+            </select></div>
+        </div>
+        ${fA ? `<div style="font-size:12px;color:var(--text-muted)">${filtered.length} record(s) for <strong style="color:var(--accent)">${desc}</strong></div>` : `<div class="alert alert-info" style="margin:0">\ud83d\udca1 Select a Building Name to begin analysis.</div>`}
+      </div>`;
+      if (fA && filtered.length) {
+        h += `<div class="sum-strip">
+          <div class="sum-box"><div class="sum-val">${totalQty.toFixed(2)}</div><div class="sum-label">Total Qty</div></div>
+          <div class="sum-box"><div class="sum-val ok">${doneQty.toFixed(2)}</div><div class="sum-label">Completed (${pct}%)</div><div class="prog-wrap"><div class="prog-fill" style="width:${pct}%"></div></div></div>
+          <div class="sum-box"><div class="sum-val ${leftQty > 0 ? 'warn' : 'ok'}">${leftQty.toFixed(2)}</div><div class="sum-label">Remaining</div></div>
+        </div>
+        <div class="table-panel" style="margin-top:20px"><table>
+          <thead><tr>
+            <th>#</th><th>Building</th><th>Tower</th><th>Floor</th><th>Location</th><th>Work Type</th><th>Unit</th><th>Plan Qty</th><th>Done</th><th>Remaining</th><th>Status</th>
+          </tr></thead><tbody>`;
+        filtered.forEach((r, i) => {
+          const done = r.billed && r.billQty != null ? r.billQty : r.completedQty || 0;
+          const left = Math.max(0, r.qty - done);
+          h += `<tr>
+            <td style="color:var(--text-muted);font-family:'DM Mono',monospace">${String(i + 1).padStart(2, '0')}</td>
+            <td style="font-size:11px">${r.buildingName || '\u2014'}</td>
+            <td>${r.tower}</td><td style="font-size:11px">${r.floor}</td>
+            <td>${r.loc || '\u2014'}</td><td style="font-size:11px">${r.wtype}</td><td>${r.unit}</td>
+            <td style="font-family:'DM Mono',monospace">${r.qty}</td>
+            <td style="font-family:'DM Mono',monospace;color:#4ade80">${done > 0 ? done.toFixed(3) : '\u2014'}</td>
+            <td style="font-family:'DM Mono',monospace;color:${left > 0 ? 'var(--danger)' : '#4ade80'}">${left.toFixed(3)}</td>
+            <td><span class="pill ${r.billed ? 'pill-billed' : r.cid ? 'pill-int' : 'pill-pending'}">${r.billed ? 'Billed' : r.cid ? 'Assigned' : 'Pending'}</span></td>
+          </tr>`;
+        });
+        h += `</tbody>
+          <tfoot><tr style="background:var(--bg-card);font-weight:600">
+            <td colspan="7" style="padding:11px 14px;font-size:11px;color:var(--text-muted)">TOTALS (${filtered.length} records)</td>
+            <td style="padding:11px 14px;font-family:'DM Mono',monospace;color:var(--accent)">${totalQty.toFixed(2)}</td>
+            <td style="padding:11px 14px;font-family:'DM Mono',monospace;color:#4ade80">${doneQty.toFixed(2)}</td>
+            <td style="padding:11px 14px;font-family:'DM Mono',monospace;color:${leftQty > 0 ? 'var(--danger)' : '#4ade80'}">${leftQty.toFixed(2)}</td>
+            <td></td>
+          </tr></tfoot>
+        </table></div>`;
+      } else if (fA && !filtered.length) {
+        h += `<div class="empty-state" style="padding:60px 20px">No records match the selected filters.</div>`;
+      }
+      document.getElementById('mainContent').innerHTML = h;
     }
 
     render();
